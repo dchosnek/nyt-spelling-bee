@@ -16,8 +16,10 @@ The resulting dictionary is already included in this repo, but the `build-dictio
 
 The script `get-matching-words.ps1` will find all words that can be created with some or all of the seven specified letters. **The dictionary used in this repo does not exactly match the NYT dictionary, so some words will not be valid.**
 
+The center letter of the puzzle is required for every word and is therefore specified separately as shown:
+
 ```
-get-matching-words.ps1 -RequiredLetters NETMIGH
+get-matching-words.ps1 -Center H -Outer NETGIM
 ```
 
 The output will be grouped by word length since more points are awarded for longer words. The output of the script would look something like the **truncated** output below.

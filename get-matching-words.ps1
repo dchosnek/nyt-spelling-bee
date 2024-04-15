@@ -37,12 +37,17 @@
 # there is one mandatory parameter: the letters for the day's puzzle
 param (
     [Parameter(Mandatory=$true)]
-    [string]$RequiredLetters
+    [string]$Center,
+    [Parameter(Mandatory=$true)]
+    [string]$Outer
 )
 
-# save words that contain only letters in $RequiredLetters
+$RequiredLetters = $Outer + $Center
+
+# save words that contain only letters in $RequiredLetters using regex 
+# lookahead to ensure the word contains the center letter
 $filtered_words = Get-Content 'dictionary.txt' | Where-Object { 
-    $_ -match "^[${RequiredLetters}]+$" 
+    $_ -match "^(?=.*${Center})[${RequiredLetters}]+$" 
 }
 
 # group words by length and display those groups on the screen
@@ -61,3 +66,5 @@ foreach ($word in $filtered_words) {
     }
     if ($flag) { Write-Host "panagram: $($word)" }
 }
+
+Write-Host "`nFound $($filtered_words.Count) words.`n"
